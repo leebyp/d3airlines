@@ -76,12 +76,14 @@ fleet.append("rect")
     .attr("x", function(d){ return scaleX(d.name); })
     .attr("y", function(d){ return scaleY(d.fleetSize); })
     .attr("height", function(d){ return height - scaleY(d.fleetSize); })
-    .attr("width", scaleX.rangeBand()/3);
+    .attr("width", scaleX.rangeBand())
+    .style("opacity", 1);
 
 fleet.append("text")
     .attr("x", function(d) { return scaleX(d.name); })
     .attr("y", function(d){ return scaleY(d.fleetSize); })
     .attr("dy", "1em")
+    .style("opacity", 1)
     .text(function(d) { return d.fleetSize + "(T)"; });
 
 //===================================
@@ -92,15 +94,17 @@ var airbus = chart.selectAll(".airbus")
 
 airbus.append("rect")
     .attr("class", "airbus")
-    .attr("x", function(d){ return scaleX(d.name)+scaleX.rangeBand()*1/3; })
+    .attr("x", function(d){ return scaleX(d.name); })
     .attr("y", function(d){ return scaleY(d.airbus); })
     .attr("height", function(d){ return height - scaleY(d.airbus); })
-    .attr("width", scaleX.rangeBand()/3)
+    .attr("width", scaleX.rangeBand()/2)
+    .style("opacity", 0);
   
 airbus.append("text")
-    .attr("x", function(d) { return scaleX(d.name)+scaleX.rangeBand()*1/3; })
+    .attr("x", function(d) { return scaleX(d.name); })
     .attr("y", function(d){ return scaleY(d.airbus); })
     .attr("dy", "1em")
+    .style("opacity", 0)
     .text(function(d) { return d.airbus + "(A)"; });
 
 
@@ -110,13 +114,18 @@ var boeing = chart.selectAll(".boeing")
 
 boeing.append("rect")
     .attr("class", "boeing")
-    .attr("x", function(d){ return scaleX(d.name)+scaleX.rangeBand()*2/3; })
+    .attr("x", function(d){ return scaleX(d.name)+scaleX.rangeBand()*1/2; })
     .attr("y", function(d){ return scaleY(d.boeing); })
     .attr("height", function(d){ return height - scaleY(d.boeing); })
-    .attr("width", scaleX.rangeBand()/3);
+    .attr("width", scaleX.rangeBand()/2)
+    .style("opacity", 0);
 
 boeing.append("text")
-    .attr("x", function(d) { return scaleX(d.name)+scaleX.rangeBand()*2/3; })
+    .attr("x", function(d) { return scaleX(d.name)+scaleX.rangeBand()*1/2; })
     .attr("y", function(d){ return scaleY(d.boeing); })
     .attr("dy", "1em")
+    .style("opacity", 0)
     .text(function(d) { return d.boeing + "(B)"; });
+
+//===================================
+//interactivity with bars, clicking total fleet will split into Airbus and Boeing

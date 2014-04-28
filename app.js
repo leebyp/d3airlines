@@ -71,7 +71,7 @@ var fleet = chart.selectAll(".fleet")
     .data(data)
   .enter()
 
-fleet.append("rect")
+var fleetBar = fleet.append("rect")
     .attr("class", "fleet")
     .attr("x", function(d){ return scaleX(d.name); })
     .attr("y", function(d){ return scaleY(d.fleetSize); })
@@ -79,7 +79,8 @@ fleet.append("rect")
     .attr("width", scaleX.rangeBand())
     .style("opacity", 1);
 
-fleet.append("text")
+var fleetText = fleet.append("text")
+    .attr("class", "fleettext")
     .attr("x", function(d) { return scaleX(d.name); })
     .attr("y", function(d){ return scaleY(d.fleetSize); })
     .attr("dy", "1em")
@@ -92,7 +93,7 @@ var airbus = chart.selectAll(".airbus")
     .data(data)
   .enter()
 
-airbus.append("rect")
+var airbusBar = airbus.append("rect")
     .attr("class", "airbus")
     .attr("x", function(d){ return scaleX(d.name); })
     .attr("y", function(d){ return scaleY(d.airbus); })
@@ -100,7 +101,8 @@ airbus.append("rect")
     .attr("width", scaleX.rangeBand()/2)
     .style("opacity", 0);
   
-airbus.append("text")
+var airbusText = airbus.append("text")
+    .attr("class", "airbustext")
     .attr("x", function(d) { return scaleX(d.name); })
     .attr("y", function(d){ return scaleY(d.airbus); })
     .attr("dy", "1em")
@@ -112,7 +114,7 @@ var boeing = chart.selectAll(".boeing")
     .data(data)
   .enter()
 
-boeing.append("rect")
+var boeingBar = boeing.append("rect")
     .attr("class", "boeing")
     .attr("x", function(d){ return scaleX(d.name)+scaleX.rangeBand()*1/2; })
     .attr("y", function(d){ return scaleY(d.boeing); })
@@ -120,7 +122,8 @@ boeing.append("rect")
     .attr("width", scaleX.rangeBand()/2)
     .style("opacity", 0);
 
-boeing.append("text")
+var boeingText = boeing.append("text")
+    .attr("class", "boeingtext")
     .attr("x", function(d) { return scaleX(d.name)+scaleX.rangeBand()*1/2; })
     .attr("y", function(d){ return scaleY(d.boeing); })
     .attr("dy", "1em")
@@ -129,3 +132,30 @@ boeing.append("text")
 
 //===================================
 //interactivity with bars, clicking total fleet will split into Airbus and Boeing
+
+fleetBar.on("click", function(){
+    d3.selectAll(".fleet").transition().duration(1000).style("opacity", 0);
+    d3.selectAll(".fleettext").transition().duration(1000).style("opacity", 0);
+    d3.selectAll(".boeing").transition().duration(1000).style("opacity", 1);
+    d3.selectAll(".boeingtext").transition().duration(1000).style("opacity", 1);
+    d3.selectAll(".airbus").transition().duration(1000).style("opacity", 1);
+    d3.selectAll(".airbustext").transition().duration(1000).style("opacity", 1);
+});
+
+boeingBar.on("click", function(){
+    d3.selectAll(".fleet").transition().duration(1000).style("opacity", 1);
+    d3.selectAll(".fleettext").transition().duration(1000).style("opacity", 1);
+    d3.selectAll(".boeing").transition().duration(1000).style("opacity", 0);
+    d3.selectAll(".boeingtext").transition().duration(1000).style("opacity", 0);
+    d3.selectAll(".airbus").transition().duration(1000).style("opacity", 0);
+    d3.selectAll(".airbustext").transition().duration(1000).style("opacity", 0);
+})
+
+airbusBar.on("click", function(){
+    d3.selectAll(".fleet").transition().duration(1000).style("opacity", 1);
+    d3.selectAll(".fleettext").transition().duration(1000).style("opacity", 1);
+    d3.selectAll(".boeing").transition().duration(1000).style("opacity", 0);
+    d3.selectAll(".boeingtext").transition().duration(1000).style("opacity", 0);
+    d3.selectAll(".airbus").transition().duration(1000).style("opacity", 0);
+    d3.selectAll(".airbustext").transition().duration(1000).style("opacity", 0);
+})

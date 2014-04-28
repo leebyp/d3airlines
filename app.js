@@ -12,17 +12,15 @@ var data = [
 
 //===================================
 //constants
-var margin = {top: 20, right: 30, bottom: 30, left: 40},
+var margin = {top: 20, right: 30, bottom: 60, left: 40},
     width = 600 - margin.left - margin.right;
     height = 600 - margin.top - margin.bottom;
 
 //===================================
-//initial instantitate
+//initial instantitation
 var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height);
-
-//===================================
 
 var scaleX = d3.scale.ordinal()
     .rangeRoundBands([0, width], .1)
@@ -47,14 +45,27 @@ var chart = d3.select("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+//===================================
+//adding data for axes and bars
 chart.append("g")
     .attr("class", "x axis")
     .attr("transform", "translate(0," + height + ")")
-    .call(xAxis);
+    .call(xAxis)
+  .append("text")
+    .text("airline")
+    .attr("x", width/2 + margin.left/2)
+    .attr("dy", "3.2em")
+    .style("text-anchor", "end");
 
 chart.append("g")
     .attr("class", "y axis")
-    .call(yAxis);
+    .call(yAxis)
+  .append("text")
+    .text("fleet size")
+    .attr("transform", "rotate(-90)")
+    .attr("y", "6")
+    .attr("dy", ".80em")
+    .style("text-anchor", "end");
 
 chart.selectAll(".bar")
     .data(data)
@@ -65,8 +76,6 @@ chart.selectAll(".bar")
     .attr("height", function(d){ return height - scaleY(d.fleetSize); })
     .attr("width", scaleX.rangeBand());
 
-
-
 //===================================
 
 
@@ -74,10 +83,7 @@ chart.selectAll(".bar")
 
 
 
-
-
-
-
+  
 
 
 

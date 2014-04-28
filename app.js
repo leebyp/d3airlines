@@ -3,11 +3,11 @@
 //===================================
 //data entry, either airports / flights
 var data = [
-  {name: "Cathay Pacific", iata: "CX", fleetSize: 139, destinations: 112, fleet: [{"airbus": [{"a330-300":36}, {"a340-300":12}]}, {"boeing": [{"b747-400":12}, {"b777-200":5}, {"b777-300":12}, {"b777-300er":39}]} ]},
-  {name: "British Airways", iata: "BA", fleetSize: 277, destinations: 169, fleet: [{"airbus": [{"a318-100":2}, {"a319-100":44}, {"a320-200":53}, {"a321-200":18}, {"a380-800":5}]}, {"boeing": [{"b737-400":19}, {"b747-400":55}, {"b767-300er":21}, {"b777-200":3}, {"b777-200er":43}, {"b777-300er":10}, {"b787-8":4}]} ]},
-  {name: "United", iata: "UA", fleetSize: 713, destinations: 373, fleet: [{"airbus": [{"a330-300":36}, {"a340-300":12}]}, {"boeing": [{"b747-400":12}, {"b777-200":5}, {"b777-300":12}, {"b777-300er":39}]} ]},
-  {name: "Emirates", iata: "EK", fleetSize: 221, destinations: 134, fleet: [{"airbus": [{"a330-300":36}, {"a340-300":12}]}, {"boeing": [{"b747-400":12}, {"b777-200":5}, {"b777-300":12}, {"b777-300er":39}]} ]},
-  {name: "Lufthansa", iata: "LH", fleetSize: 287, destinations: 215, fleet: [{"airbus": [{"a330-300":36}, {"a340-300":12}]}, {"boeing": [{"b747-400":12}, {"b777-200":5}, {"b777-300":12}, {"b777-300er":39}]} ]}
+  {name: "Cathay Pacific", iata: "CX", fleetSize: 139, airbus: 48, boeing: 91},
+  {name: "British Airways", iata: "BA", fleetSize: 277, airbus: 122, boeing: 155},
+  {name: "United", iata: "UA", fleetSize: 713, airbus: 48, boeing: 665},
+  {name: "Emirates", iata: "EK", fleetSize: 221, airbus: 82, boeing: 139},
+  {name: "Lufthansa", iata: "LH", fleetSize: 287, airbus:229 , boeing: 58}
 ]
 
 //===================================
@@ -67,27 +67,56 @@ chart.append("g")
     .attr("dy", ".80em")
     .style("text-anchor", "end");
 
-chart.selectAll(".bar")
+var fleet = chart.selectAll(".fleet")
     .data(data)
-  .enter().append("rect")
-    .attr("class", "bar")
+  .enter()
+
+fleet.append("rect")
+    .attr("class", "fleet")
     .attr("x", function(d){ return scaleX(d.name); })
     .attr("y", function(d){ return scaleY(d.fleetSize); })
     .attr("height", function(d){ return height - scaleY(d.fleetSize); })
-    .attr("width", scaleX.rangeBand());
+    .attr("width", scaleX.rangeBand()/3);
+
+fleet.append("text")
+    .attr("x", function(d) { return scaleX(d.name); })
+    .attr("y", function(d){ return scaleY(d.fleetSize); })
+    .attr("dy", "1em")
+    .text(function(d) { return d.fleetSize; });
 
 //===================================
+//extra bars for manufacturer
+var airbus = chart.selectAll(".airbus")
+    .data(data)
+  .enter()
 
-
-
-
-
-
+airbus.append("rect")
+    .attr("class", "airbus")
+    .attr("x", function(d){ return scaleX(d.name)+scaleX.rangeBand()*1/3; })
+    .attr("y", function(d){ return scaleY(d.airbus); })
+    .attr("height", function(d){ return height - scaleY(d.airbus); })
+    .attr("width", scaleX.rangeBand()/3)
   
+airbus.append("text")
+    .attr("x", function(d) { return scaleX(d.name)+scaleX.rangeBand()*1/3; })
+    .attr("y", function(d){ return scaleY(d.airbus); })
+    .attr("dy", "1em")
+    .text(function(d) { return d.airbus; });
 
 
+var boeing = chart.selectAll(".boeing")
+    .data(data)
+  .enter()
 
+boeing.append("rect")
+    .attr("class", "boeing")
+    .attr("x", function(d){ return scaleX(d.name)+scaleX.rangeBand()*2/3; })
+    .attr("y", function(d){ return scaleY(d.boeing); })
+    .attr("height", function(d){ return height - scaleY(d.boeing); })
+    .attr("width", scaleX.rangeBand()/3);
 
-
-
-
+boeing.append("text")
+    .attr("x", function(d) { return scaleX(d.name)+scaleX.rangeBand()*2/3; })
+    .attr("y", function(d){ return scaleY(d.boeing); })
+    .attr("dy", "1em")
+    .text(function(d) { return d.boeing; });

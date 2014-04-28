@@ -82,7 +82,7 @@ fleet.append("text")
     .attr("x", function(d) { return scaleX(d.name); })
     .attr("y", function(d){ return scaleY(d.fleetSize); })
     .attr("dy", "1em")
-    .text(function(d) { return d.fleetSize; });
+    .text(function(d) { return d.fleetSize + "(T)"; });
 
 //===================================
 //extra bars for manufacturer
@@ -101,7 +101,7 @@ airbus.append("text")
     .attr("x", function(d) { return scaleX(d.name)+scaleX.rangeBand()*1/3; })
     .attr("y", function(d){ return scaleY(d.airbus); })
     .attr("dy", "1em")
-    .text(function(d) { return d.airbus; });
+    .text(function(d) { return d.airbus + "(A)"; });
 
 
 var boeing = chart.selectAll(".boeing")
@@ -119,4 +119,4 @@ boeing.append("text")
     .attr("x", function(d) { return scaleX(d.name)+scaleX.rangeBand()*2/3; })
     .attr("y", function(d){ return scaleY(d.boeing); })
     .attr("dy", "1em")
-    .text(function(d) { return d.boeing; });
+    .text(function(d) { return d.boeing + "(B)"; });

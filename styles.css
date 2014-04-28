@@ -1,2 +1,24 @@
 /* your beautiful css styling goes here! */
 
+.bar {
+	fill: steelblue;
+}
+
+.bar:hover {
+	fill: lightcoral;
+}
+
+.axis text {
+	font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+	fill: none;
+	stroke: #000;
+	shape-rendering: crispEdges;
+}
+
+.scaleX.axis path {
+	display: none;
+}

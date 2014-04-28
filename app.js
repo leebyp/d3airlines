@@ -3,11 +3,11 @@
 //===================================
 //data entry, either airports / flights
 var data = [
-  {name: "Cathay Pacific", iata: "CX", fleetSize: 139, destinations: 112},
-  {name: "British Airways", iata: "BA", fleetSize: 277, destinations: 169},
-  {name: "United", iata: "UA", fleetSize: 713, destinations: 373},
-  {name: "Emirates", iata: "EK", fleetSize: 221, destinations: 134},
-  {name: "Lufthansa", iata: "LH", fleetSize: 287, destinations: 215}
+  {name: "Cathay Pacific", iata: "CX", fleetSize: 139, destinations: 112, fleet: [{"airbus": [{"a330-300":36}, {"a340-300":12}]}, {"boeing": [{"b747-400":12}, {"b777-200":5}, {"b777-300":12}, {"b777-300er":39}]} ]},
+  {name: "British Airways", iata: "BA", fleetSize: 277, destinations: 169, fleet: [{"airbus": [{"a318-100":2}, {"a319-100":44}, {"a320-200":53}, {"a321-200":18}, {"a380-800":5}]}, {"boeing": [{"b737-400":19}, {"b747-400":55}, {"b767-300er":21}, {"b777-200":3}, {"b777-200er":43}, {"b777-300er":10}, {"b787-8":4}]} ]},
+  {name: "United", iata: "UA", fleetSize: 713, destinations: 373, fleet: [{"airbus": [{"a330-300":36}, {"a340-300":12}]}, {"boeing": [{"b747-400":12}, {"b777-200":5}, {"b777-300":12}, {"b777-300er":39}]} ]},
+  {name: "Emirates", iata: "EK", fleetSize: 221, destinations: 134, fleet: [{"airbus": [{"a330-300":36}, {"a340-300":12}]}, {"boeing": [{"b747-400":12}, {"b777-200":5}, {"b777-300":12}, {"b777-300er":39}]} ]},
+  {name: "Lufthansa", iata: "LH", fleetSize: 287, destinations: 215, fleet: [{"airbus": [{"a330-300":36}, {"a340-300":12}]}, {"boeing": [{"b747-400":12}, {"b777-200":5}, {"b777-300":12}, {"b777-300er":39}]} ]}
 ]
 
 //===================================

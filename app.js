@@ -76,15 +76,15 @@ var fleetBar = fleet.append("rect")
     .attr("x", function(d){ return scaleX(d.name); })
     .attr("y", function(d){ return scaleY(d.fleetSize); })
     .attr("height", function(d){ return height - scaleY(d.fleetSize); })
-    .attr("width", scaleX.rangeBand())
-    .style("opacity", 1);
+    .attr("width", scaleX.rangeBand());
+//    .style("opacity", 1);
 
 var fleetText = fleet.append("text")
     .attr("class", "fleettext")
     .attr("x", function(d) { return scaleX(d.name); })
     .attr("y", function(d){ return scaleY(d.fleetSize); })
     .attr("dy", "1em")
-    .style("opacity", 1)
+//    .style("opacity", 1)
     .text(function(d) { return d.fleetSize + "(T)"; });
 
 //===================================
@@ -97,17 +97,17 @@ var airbusBar = airbus.append("rect")
     .attr("class", "airbus")
     .attr("x", function(d){ return scaleX(d.name); })
     .attr("y", function(d){ return scaleY(d.airbus); })
-    .attr("height", function(d){ return height - scaleY(d.airbus); })
-    .attr("width", scaleX.rangeBand()/2)
-    .style("opacity", 0);
+    .attr("height", 0)
+    .attr("width", scaleX.rangeBand()/2);
+//    .style("opacity", 0);
   
 var airbusText = airbus.append("text")
     .attr("class", "airbustext")
     .attr("x", function(d) { return scaleX(d.name); })
     .attr("y", function(d){ return scaleY(d.airbus); })
-    .attr("dy", "1em")
-    .style("opacity", 0)
-    .text(function(d) { return d.airbus + "(A)"; });
+    .attr("dy", "1em");
+//    .style("opacity", 0)
+//    .text(function(d) { return d.airbus + "(A)"; });
 
 
 var boeing = chart.selectAll(".boeing")
@@ -118,44 +118,44 @@ var boeingBar = boeing.append("rect")
     .attr("class", "boeing")
     .attr("x", function(d){ return scaleX(d.name)+scaleX.rangeBand()*1/2; })
     .attr("y", function(d){ return scaleY(d.boeing); })
-    .attr("height", function(d){ return height - scaleY(d.boeing); })
-    .attr("width", scaleX.rangeBand()/2)
-    .style("opacity", 0);
+    .attr("height", 0)
+    .attr("width", scaleX.rangeBand()/2);
+//    .style("opacity", 0);
 
 var boeingText = boeing.append("text")
     .attr("class", "boeingtext")
     .attr("x", function(d) { return scaleX(d.name)+scaleX.rangeBand()*1/2; })
     .attr("y", function(d){ return scaleY(d.boeing); })
-    .attr("dy", "1em")
-    .style("opacity", 0)
-    .text(function(d) { return d.boeing + "(B)"; });
+    .attr("dy", "1em");
+//    .style("opacity", 0)
+//    .text(function(d) { return d.boeing + "(B)"; });
 
 //===================================
 //interactivity with bars, clicking total fleet will split into Airbus and Boeing
 
 fleetBar.on("click", function(){
-    d3.selectAll(".fleet").transition().duration(1000).style("opacity", 0);
-    d3.selectAll(".fleettext").transition().duration(1000).style("opacity", 0);
-    d3.selectAll(".boeing").transition().duration(1000).style("opacity", 1);
-    d3.selectAll(".boeingtext").transition().duration(1000).style("opacity", 1);
-    d3.selectAll(".airbus").transition().duration(1000).style("opacity", 1);
-    d3.selectAll(".airbustext").transition().duration(1000).style("opacity", 1);
+    d3.selectAll(".fleet").transition().duration(100).attr("height", 0);
+    d3.selectAll(".fleettext").transition().duration(100).text("");
+    d3.selectAll(".boeing").transition().duration(1000).attr("height", function(d){ return height - scaleY(d.boeing); });
+    d3.selectAll(".boeingtext").transition().duration(1000).text(function(d) { return d.boeing + "(B)"; });
+    d3.selectAll(".airbus").transition().duration(1000).attr("height", function(d){ return height - scaleY(d.airbus); });
+    d3.selectAll(".airbustext").transition().duration(1000).text(function(d) { return d.airbus + "(A)"; });
 });
 
 boeingBar.on("click", function(){
-    d3.selectAll(".fleet").transition().duration(1000).style("opacity", 1);
-    d3.selectAll(".fleettext").transition().duration(1000).style("opacity", 1);
-    d3.selectAll(".boeing").transition().duration(1000).style("opacity", 0);
-    d3.selectAll(".boeingtext").transition().duration(1000).style("opacity", 0);
-    d3.selectAll(".airbus").transition().duration(1000).style("opacity", 0);
-    d3.selectAll(".airbustext").transition().duration(1000).style("opacity", 0);
-})
+    d3.selectAll(".fleet").transition().duration(1000).attr("height", function(d){ return height - scaleY(d.fleetSize); });
+    d3.selectAll(".fleettext").transition().duration(1000).text(function(d) { return d.fleetSize + "(T)"; });
+    d3.selectAll(".boeing").transition().duration(100).attr("height", 0);
+    d3.selectAll(".boeingtext").transition().duration(100).text("");
+    d3.selectAll(".airbus").transition().duration(100).attr("height", 0);
+    d3.selectAll(".airbustext").transition().duration(100).text("");
+});
 
 airbusBar.on("click", function(){
-    d3.selectAll(".fleet").transition().duration(1000).style("opacity", 1);
-    d3.selectAll(".fleettext").transition().duration(1000).style("opacity", 1);
-    d3.selectAll(".boeing").transition().duration(1000).style("opacity", 0);
-    d3.selectAll(".boeingtext").transition().duration(1000).style("opacity", 0);
-    d3.selectAll(".airbus").transition().duration(1000).style("opacity", 0);
-    d3.selectAll(".airbustext").transition().duration(1000).style("opacity", 0);
-})
+    d3.selectAll(".fleet").transition().duration(1000).attr("height", function(d){ return height - scaleY(d.fleetSize); });
+    d3.selectAll(".fleettext").transition().duration(1000).text(function(d) { return d.fleetSize + "(T)"; });
+    d3.selectAll(".boeing").transition().duration(100).attr("height", 0);
+    d3.selectAll(".boeingtext").transition().duration(100).text("");
+    d3.selectAll(".airbus").transition().duration(100).attr("height", 0);
+    d3.selectAll(".airbustext").transition().duration(100).text("");
+});
